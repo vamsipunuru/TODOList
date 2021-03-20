@@ -1,4 +1,5 @@
 # TODOList
+# Refer the "OnlineTODOList_application_manual.doc" document placed in the repository.
 TODOList web application 
 1.	Online TODO List web application
 
@@ -20,13 +21,6 @@ Example is in the source code (SecuredPasswordGenerator.java)
 
 •	Login screen: (http://localhost:8080/login)
 
- 
-
-
-
-
-
-
 •	Welcome screen: (http://localhost:8080/welcome)
  
 •	   Get All tasks: By clicking the Get All Tasks button.
@@ -45,7 +39,7 @@ If there are no tasks created an empty task list will be displayed.
  
 
 3.	Test cases
-•	Below are unit test cases for both the Service and Controller.
+•	Unit test cases implemented for both the Service and Controller.
 
 
  
