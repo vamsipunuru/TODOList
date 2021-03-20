@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<meta charset="ISO-8859-1">
+<title>Todo List</title>
+</head>
+<div sec:authorize="hasRole('ADMIN')">
+	<a href="/cpanel">Admin CPanel</a>
+</div>
+<script type="text/javascript">
+	function checkboxsubmit(checkboxform) {
+		if (checkboxform.taskCheck.checked) {
+			checkboxform.submit();
+		}
+		if (!checkboxform.taskCheck.checked) {
+			checkboxform.submit();
+		}
+	}
+</script>
+<body>
+	<div style="max-width: 1000px; background-color: powderblue;">
+		<div style="text-align: center;">
+			<h2 th:inline="text">Welcome
+				[[${#httpServletRequest.remoteUser}]]</h2>
+		</div>
+		<div style="text-align: right; margin-right: 50px;">
+			<form th:action="@{/logout}" method="post">
+				<input type="submit" value="Logout" />
+			</form>
+		</div>
+		<div style="text-align: left;">
+			<a th:href="@{/addtask}">Add Task</a>
+			<h3>Task List</h3>
+			<table border="1" cellpadding="2" cellspacing="2">
+				<tr>
+					<th>Id</th>
+					<th>Name</th>
+					<th>Description</th>
+					<th>Date</th>
+					<th>Edit Task</th>
+					<th>Remove Task</th>
+					<th>Check/Uncheck</th>
+				</tr>
+
+				<tr th:each="tasks : ${todoTasks}">
+					<td th:text="${tasks.id}"></td>
+					<td th:text="${tasks.name}"></td>
+					<td th:text="${tasks.description}"></td>
+					<td th:text="${tasks.updatedDate}"></td>
+					<td><a th:href="@{/getTask/__${tasks.id}__}"
+						class="btn btn-danger">EDIT</a></td>
+					<td><a th:href="@{/removeTask/__${tasks.id}__}"
+						class="btn btn-danger">DELETE</a></td>
+					<td>
+						<!-- <input type="checkbox" name="taskChecked"
+					th:checked="${tasks.taskChecked}" /> -->
+						<form name=checkboxform id="form" method="post"
+							th:action="@{/taskCheck/__${tasks.id}__}">
+							<input type="checkbox" id="taskCheck" name="taskCheck"
+								th:checked="${tasks.taskChecked}"
+								onclick="checkboxsubmit(this.form);" />
+						</form>
+					</td>
+
+				</tr>
+			</table>
+
+		</div>
+	</div>
+</body>
+</html>
